@@ -1,0 +1,20 @@
+
+Package: JUMPsem
+Type: Package
+Title: JUMPsem: Enzyme Activity Inference with Structural Equation Modeling
+Version: 1.0
+Date: 2023-09-13
+Author: Dehui Kong
+Maintainer: Dehui Kong <dkong3@uthsc.edu>
+Imports: lavaan(>= 0.6-11), tidyr(>= 1.2.0), stringr(>= 1.4.0), dplyr(>= 1.0.9), psych(>= 2.2.5), devtools(>= 2.4.5), EFAtools(>= 0.4.1)
+Description: JUMPsem is used to infer enzyme activity.
+Depends: R (>= 3.5.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+
