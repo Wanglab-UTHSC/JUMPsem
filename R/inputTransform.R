@@ -37,7 +37,7 @@ inputTransformPSP <- function(input_raw,
     input_log2 <- data
   }
 
-  input_log2 <- data.frame(input_log2)
+  input_log2 <- data.frame(input_log2, check.names = F)
 
   if (!is.null(whole_proteome)){
     if (whole_log2_trans == TRUE) {
@@ -54,7 +54,7 @@ inputTransformPSP <- function(input_raw,
       input_whole_join_na <- left_join(input_log2, whole_proteome_log2, by = "Substrate_ACC")
       input_whole_join <- input_whole_join_na[complete.cases(input_whole_join_na), ]
       # sample number and sample names
-      smp_num <- ncol(input_log2)-2
+      smp_num <- ncol(input_log2) - 2
       smp_name <- colnames(whole_proteome_log2)[2:(smp_num + 1)]
       # log2 transform with whole proteome data
       input_whole_trans <- cbind(input_whole_join$Substrate_ACC, input_whole_join$id, input_whole_join[, 2:(smp_num + 1)] - input_whole_join[, (smp_num + 3):ncol(input_whole_join)])

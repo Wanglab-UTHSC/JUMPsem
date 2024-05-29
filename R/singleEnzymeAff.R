@@ -8,6 +8,7 @@
 #' @param adj Adjacency matrix.
 #' @param cor.off Set up correlation cutoff value 0-1 to remove high collinear variables. Default is 0.95.
 #' @param kmo.off Set up KMO cutoff value 0-1. Default is 0.
+#' @param mdsite Logical. Mapping with precise phosphorylated modification sites or not. Default is TRUE.
 #' @title singleEnzymeAff
 
 
@@ -15,17 +16,38 @@ singleEnzymeAff <- function(enzyme,
                             input,
                             adj,
                             cor.off,
-                            kmo.off)
+                            kmo.off,
+                            mdsite)
 {
   try({
     affinitiy_list <- list()
     enzyme_substrates <- rownames(adj[which(adj[, enzyme] == 1), ])# extract "1" from special enzyme column
-    intersect_substrates <- intersect(x = enzyme_substrates, y = rownames(input))# intersection of enzyme_substrates between adj_matrix and input
+
+    if (mdsite == TRUE){
+
+      intersect_substrates <- intersect(x = enzyme_substrates, y = rownames(input))# intersection of kinase_substrates between adj_matrix and input
+
+    }else{
+      siteN <- rownames(input)
+      first_parts <- sapply(strsplit(siteN, "_"), function(x) x[1])
+
+      intersect_substrates <- intersect(x = enzyme_substrates, y = first_parts)# intersection of kinase_substrates between adj_matrix and input
+    }
 
     if (length(intersect_substrates) > 1){
       # correlation between each enzyme_substrate
       data <- as.matrix(input)
-      enzyme_table_raw <- t(data[which(rownames(data) %in% intersect_substrates),])
+
+      if (mdsite == TRUE){
+        enzyme_table_raw <- t(data[which(rownames(data) %in% intersect_substrates),])
+      }else{
+        # Split row names using "_"
+        split_row_names <- sapply(rownames(data), function(x) unlist(strsplit(x, "_"))[1])
+
+        # Filter rows based on intersection of split row names and substrates
+        enzyme_table_raw <- t(data[which(split_row_names %in% intersect_substrates), ])
+
+      }
 
       # transfer matrix into numeric matrix (just make sure)
       enzyme_table_raw_c <- as.numeric(enzyme_table_raw)

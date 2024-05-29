@@ -27,18 +27,18 @@ NULL
 #'
 
 psp_data <- function() {
-  utils::data(list="PhosphositePlus", package="eSEM")
+  utils::data(list="PhosphositePlus", package="JUMPsem")
   get("psp", envir = .GlobalEnv)
 }
 
 ubi_data <- function() {
-  utils::data(list="UbiquitinDatabase", package="eSEM")
+  utils::data(list="UbiquitinDatabase", package="JUMPsem")
   get("ubi", envir = .GlobalEnv)
 }
 
 
 ace_data <- function(){
-  utils::data(list="AcetyDatabase", package="eSEM")
+  utils::data(list="AcetyDatabase", package="JUMPsem")
   get("ace", envir = .GlobalEnv)
 }
 
@@ -47,31 +47,31 @@ ace_data <- function(){
 
 
 inputExample_PSPdata <- function() {
-  utils::data(list="input_psp_example", package="eSEM")
+  utils::data(list="input_psp_example", package="JUMPsem")
   get("input_psp_example", envir = .GlobalEnv)
 }
 
 inputExample_UBIdata <- function() {
-  utils::data(list="input_ubi_example", package="eSEM")
+  utils::data(list="input_ubi_example", package="JUMPsem")
   get("input_ubi_example", envir = .GlobalEnv)
 }
 
 
 inputExample_ACEdata <- function() {
-  utils::data(list="input_ace_example", package="eSEM")
+  utils::data(list="input_ace_example", package="JUMPsem")
   get("input_ace_example", envir = .GlobalEnv)
 }
 
 
 
 wholeProteomeExample_data <- function() {
-  utils::data(list="wholeProteome_psp_example", package="eSEM")
+  utils::data(list="wholeProteome_psp_example", package="JUMPsem")
   get("wholeProteome_psp_example", envir = .GlobalEnv)
 }
 
 
 motifExample_data <- function() {
-  utils::data(list="motif_example", package="eSEM")
+  utils::data(list="motif_example", package="JUMPsem")
   get("motif_example", envir = .GlobalEnv)
 }
 

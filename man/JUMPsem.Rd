@@ -12,6 +12,7 @@ JUMPsem(
   database = NULL,
   cor.off = 0.95,
   kmo.off = 0,
+  mdsite = TRUE,
   enzyList = NULL,
   input.log2.norm = FALSE,
   whole.log2.trans = FALSE,
@@ -35,6 +36,8 @@ JUMPsem(
 
 \item{kmo.off}{Numeric. Set up KMO cutoff value 0-1. Default is 0.}
 
+\item{mdsite}{Logical. Mapping with precise phosphorylated modification sites or not. Default is TRUE.}
+
 \item{enzyList}{Vector. Program only calculate the enzyme in the enzyList. Default is to output ALL enzyme activities and affinities.}
 
 \item{input.log2.norm}{Logical. FALSE or TRUE. Need program to do log2 transforming of the input file or not. Default is FALSE.}
@@ -43,7 +46,7 @@ JUMPsem(
 
 \item{whole.proteome}{Dataframe. Set up whole proteome used to normalize phosphor-proteome or ubiquitin-proteome whole proteome. Default is NULL.}
 
-\item{motif}{Matrix. Added kinase-subatrate relationships from motif discovery.}
+\item{motif}{Matrix. Added kinase-substrate relationships from motif discovery.}
 
 \item{output.folder}{Character. Character vector of location to save files if desired. Default is current directory.}
 }

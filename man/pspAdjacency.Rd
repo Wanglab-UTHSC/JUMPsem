@@ -4,7 +4,7 @@
 \alias{pspAdjacency}
 \title{pspAdjacency}
 \usage{
-pspAdjacency(sp, ep, databasePSP)
+pspAdjacency(sp, ep, databasePSP, mdsite)
 }
 \arguments{
 \item{sp}{Substrate species; ("mouse", "rat", "human").}
@@ -12,6 +12,8 @@ pspAdjacency(sp, ep, databasePSP)
 \item{ep}{Enzyme species; ("mouse", "rat", "human").}
 
 \item{databasePSP}{Default database or customized database input.}
+
+\item{mdsite}{Logical. Mapping with precise phosphorylated modification sites or not. Default is TRUE.}
 }
 \description{
 This script is used to build kinase-substrate adjacency matrix with only PSP database.

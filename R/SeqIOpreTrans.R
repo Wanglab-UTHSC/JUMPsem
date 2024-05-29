@@ -1,9 +1,10 @@
 #' @export SeqIOpreTrans
-#' @description
+#' @description SeqIOpreTrans
 #' @param input_raw Input raw data (quantitative phosphoproteomics data)
 #' @param filePath Character. Character vector of location to save files if desired. Default is current directory.
 #' @import dplyr
 #' @import tidyr
+
 
 
 

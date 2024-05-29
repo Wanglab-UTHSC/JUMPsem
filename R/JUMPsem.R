@@ -11,11 +11,12 @@
 #' @param database Dataframe. Customized database input. Default is NULL using internal database.
 #' @param cor.off Numeric. Set up correlation cutoff value 0-1 to remove high collinear variables. Default is 0.95.
 #' @param kmo.off Numeric. Set up KMO cutoff value 0-1. Default is 0.
+#' @param mdsite Logical. Mapping with precise phosphorylated modification sites or not. Default is TRUE.
 #' @param enzyList Vector. Program only calculate the enzyme in the enzyList. Default is to output ALL enzyme activities and affinities.
 #' @param input.log2.norm Logical. FALSE or TRUE. Need program to do log2 transforming of the input file or not. Default is FALSE.
 #' @param whole.log2.trans Logical. FALSE or TRUE. Need program to do log2 transforming of the whole proteome or not. (Ignore if -whole.proteome is missing). Default is FALSE.
 #' @param whole.proteome Dataframe. Set up whole proteome used to normalize phosphor-proteome or ubiquitin-proteome whole proteome. Default is NULL.
-#' @param motif Matrix. Added kinase-subatrate relationships from motif discovery.
+#' @param motif Matrix. Added kinase-substrate relationships from motif discovery.
 #' @param output.folder Character. Character vector of location to save files if desired. Default is current directory.
 
 #' @return List
@@ -66,6 +67,7 @@ JUMPsem = function(
                 database = NULL,
                 cor.off = 0.95,
                 kmo.off = 0,
+                mdsite = TRUE,
                 enzyList = NULL,
                 input.log2.norm = FALSE,
                 whole.log2.trans = FALSE,
@@ -99,8 +101,7 @@ JUMPsem = function(
     stop("Please set your data organism!")
   }else if(datatype == "ace" && organism != "human"){
     stop("Sorry but acetylation datatype is only available for human organism! \n Please change correct your datatype or organism")
-  }
-  else {
+  }else {
     message("Start running...")
   }
 
@@ -156,7 +157,7 @@ JUMPsem = function(
     if (is.null(motif)) {
       message("\n", "Running without motif added!")
       if (datatype == "psp"){
-        adj_matrix <- pspAdjacency(sp = organism, ep = enzyme.organism, databasePSP = database)
+        adj_matrix <- pspAdjacency(sp = organism, ep = enzyme.organism, databasePSP = database, mdsite = mdsite)
 
       }else if(datatype == "ubi"){
         adj_matrix <- ubiAdjacency(sp = organism, databaseUBI = database)
@@ -182,7 +183,7 @@ JUMPsem = function(
     # get activity and affinity
     message("\n", "Calculating activity begins!", "\n", "Valid Enzyme with activities: ")
     if (datatype == "psp"){
-      activity <- lapply(enzyList, singleKinaseAct, input= input_trans, adj = adj_matrix, cor.off = cor.off, kmo.off = kmo.off)
+      activity <- lapply(enzyList, singleKinaseAct, input= input_trans, adj = adj_matrix, cor.off = cor.off, kmo.off = kmo.off, mdsite = mdsite)
 
     }else if(datatype == "ubi"){
       activity <- lapply(enzyList, singleLigaseAct, input= input_trans, adj = adj_matrix, cor.off = cor.off, kmo.off = kmo.off)
@@ -210,7 +211,7 @@ JUMPsem = function(
 
     ### AFFINITY
     message("\n", "Calculating affinity begins!", "\n", "Valid Enzyme with affinities: ")
-    affinity <- lapply(enzyList, singleEnzymeAff, input= input_trans, adj = adj_matrix, cor.off = cor.off, kmo.off = kmo.off)
+    affinity <- lapply(enzyList, singleEnzymeAff, input= input_trans, adj = adj_matrix, cor.off = cor.off, kmo.off = kmo.off, mdsite = mdsite)
     message("\n", "Calculation finished! Start gererating...")
     ##
     affinity <- catchAff(x = affinity, rawData = input)

@@ -9,23 +9,60 @@
 #' @param adj Adjacency matrix.
 #' @param cor.off Set up correlation cutoff value 0-1 to remove high collinear variables. Default is 0.95.
 #' @param kmo.off Set up KMO cutoff value 0-1. Default is 0.
+#' @param mdsite Logical. Mapping with precise phosphorylated modification sites or not. Default is TRUE. description
 
 
 singleKinaseAct <- function(kinase,
                             input,
                             adj,
                             cor.off,
-                            kmo.off)
+                            kmo.off,
+                            mdsite)
 {
   try({
     activity_list <- list()
     kinase_substrates <- rownames(adj[which(adj[, kinase] == 1), ])# extract "1" from special kinase column
-    intersect_substrates <- intersect(x = kinase_substrates, y = rownames(input))# intersection of kinase_substrates between adj_matrix and input
+
+    if (mdsite == TRUE){
+
+      intersect_substrates <- intersect(x = kinase_substrates, y = rownames(input))# intersection of kinase_substrates between adj_matrix and input
+
+    }else{
+      siteN <- rownames(input)
+      first_parts <- sapply(strsplit(siteN, "_"), function(x) x[1])
+
+      intersect_substrates <- intersect(x = kinase_substrates, y = first_parts)# intersection of kinase_substrates between adj_matrix and input
+    }
+
 
     if (length(intersect_substrates) > 1){
       # correlation between each kinase_substrate
-      data <- as.matrix(input)
-      kinase_table_raw <- t(data[which(rownames(data) %in% intersect_substrates),])
+      data <- data.frame(input)
+
+      if (mdsite == T){
+        kinase_table_raw <- t(data[which(rownames(data) %in% intersect_substrates),])
+      }else{
+        # Split row names using "_"
+        split_row_names <- sapply(rownames(data), function(x) unlist(strsplit(x, "_"))[1])
+
+        # Filter rows based on intersection of split row names and substrates
+        kinase_table_raw <- t(data[which(split_row_names %in% intersect_substrates), ])
+
+        # Convert the transposed matrix to a data frame and then to numeric
+        kinase_table_numeric <- as.data.frame(apply(kinase_table_raw, 2, as.numeric))
+        rownames(kinase_table_numeric) <- rownames(kinase_table_raw)
+
+        # Verify the dimensions match
+        original_dim <- dim(kinase_table_raw)
+        new_dim <- dim(kinase_table_numeric)
+
+        if (!all(original_dim == new_dim)) {
+          stop("Dimensions of the numeric data frame do not match the transposed matrix.")
+        }
+
+      }
+
+      kinase_table_raw <- kinase_table_numeric
       cor_matrix <- cor(kinase_table_raw) # Correlation matrix
 
       # Remove highly&lowly correlated variables

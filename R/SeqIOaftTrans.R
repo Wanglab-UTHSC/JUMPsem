@@ -1,5 +1,5 @@
 #' @export SeqIOaftTrans
-#' @description
+#' @description SeqIOaftTrans
 #' @param SeqIOoutput output from SeqIO.py; Without header
 #' @param input_trans transformed file from SeqIOpreTrans; could use input_raw also if there is NO comma in "sites" coloumn.
 #' @param filePath Character. Character vector of location to save files if desired. Default is current directory.
