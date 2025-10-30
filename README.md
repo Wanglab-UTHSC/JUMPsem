@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="doc/logo.png" alt="JUMPsem logo" width="360">
+  <img src="doc/LOGO.png" alt="JUMPsem logo" width="360">
 </p>
 
 Toolbox for **inference of enzyme activity** using structural equation modeling (SEM) on phospho-/ubiquityl-/acetyl-proteomics data.
