@@ -27,7 +27,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 
 **Then, install all dependencies:**
 ``` r
-packages <- c("lavaan", "dplyr", "tidyr", "devtools", "psych", "MASS", "Matrix", "tidyverse", “EFAtools”, "data.table")
+packages <- c("lavaan", "dplyr", "tidyr", "psych", "MASS", "Matrix", "tidyverse", “EFAtools”, "data.table")
 
 for (pkg in packages) {
     if (!requireNamespace(pkg, quietly = TRUE)) install.packages(pkg)
@@ -133,7 +133,7 @@ se_res <- JUMPsem(
 
 ---
 
-## Inputs
+## Arguments
 
 * **`input`**: data frame / matrix (rows = substrates/sites, columns = samples); numeric values.
 * **`datatype`**: one of `"psp"` (phosphorylation), `"ubi"` (ubiquitination), `"ace"` (acetylation).
