@@ -10,7 +10,7 @@ Toolbox for **inference of enzyme activity** using structural equation modeling 
 
 ## Key Features
 
-* **Unified API** for kinase, ligase, and HAT activity inference
+* **Unified API** for kinase, ligase, and HAT activity inference.
 * **SEM under the hood** (via `lavaan`) with optional residual‑covariance refinement
 * **Automatic pre‑processing**: log2 transforms, normalization, PCA‑based substrate selection (optional)
 * **Model‑fit reports**: CFI/TLI/RMSEA/SRMR and modification indices
