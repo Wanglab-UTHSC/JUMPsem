@@ -27,7 +27,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 
 **Then, install all dependencies:**
 ``` r
-packages <- c("lavaan", "dplyr", "tidyr", "psych", "MASS", "Matrix", "tidyverse", “EFAtools”, "data.table")
+packages <- c("lavaan", "dplyr", "tidyr", "psych", "MASS", "Matrix", "tidyverse", "EFAtools", "data.table")
 
 for (pkg in packages) {
     if (!requireNamespace(pkg, quietly = TRUE)) install.packages(pkg)
